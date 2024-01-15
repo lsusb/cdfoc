@@ -11,7 +11,8 @@
 #include "app_main.h"
 //#define SEN_ICMU
 //#define SEN_MA73X
-#define SEN_TLE5012B
+// #define SEN_TLE5012B
+#define SEN_AS5311
 
 extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;
@@ -21,8 +22,8 @@ extern I2C_HandleTypeDef hi2c1;
 
 gpio_t led_r = { .group = LED_R_GPIO_Port, .num = LED_R_Pin };
 gpio_t led_g = { .group = LED_G_GPIO_Port, .num = LED_G_Pin };
-gpio_t dbg_out1 = { .group = DBG_OUT1_GPIO_Port, .num = DBG_OUT1_Pin };
 
+gpio_t dbg_out1 = { .group = DBG_OUT1_GPIO_Port, .num = DBG_OUT1_Pin };
 static i2c_t temperature_drv = { .hi2c = &hi2c1, .dev_addr = 0x90 };
 static i2c_t temperature_motor = { .hi2c = &hi2c1, .dev_addr = 0x92 };
 
@@ -58,7 +59,7 @@ static void device_init(void)
     for (i = 0; i < PACKET_MAX; i++)
         list_put(&packet_free_head, &packet_alloc[i].node);
 
-    cdctl_dev_init(&r_dev, &frame_free_head, &csa.bus_cfg, &r_spi, NULL, &r_int);
+    cdctl_dev_init(&r_dev, &frame_free_head, &csa.bus_cfg, &r_spi, NULL, &r_int);  //初始化CDBUS
 
     // 12MHz / (0 + 2) * (48 + 2) / 2^1 = 150MHz
     d_info("pll_n: %02x\n", cdctl_read_reg(&r_dev, REG_PLL_N));
@@ -239,6 +240,15 @@ static uint16_t sen_tx_val[2] = {0x8021, 0};
 uint16_t encoder_read(void)
 {
     return 0xffff - (sen_rx_val[1] << 1);
+}
+
+#elif defined(SEN_AS5311) // 
+#define SEN_CNT 2           // connection: MCU_MOSI -- resistor -- MCU_MISO -- TLE5012B_DATA
+static volatile uint16_t sen_rx_val[1] = {0};
+static uint16_t sen_tx_val[1] = {0};
+uint16_t encoder_read(void)
+{
+    return sen_rx_val[1];
 }
 
 #endif
@@ -444,7 +454,7 @@ void app_main(void)
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, DRV_PWM_HALF);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, DRV_PWM_HALF);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, DRV_PWM_HALF);
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 1);  // >= 1, ```|_|``` trigger on neg-edge, sensor
+    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_4, 4000);  // >= 1, ```|_|``` trigger on neg-edge, sensor
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_5, 12); // >= 1, ```|_|``` trigger on neg-edge, adc
     // adc 3.5 cycles @ 170M/4 -> 82.35 nS -> /2 -> 41.2 nS, pwm 12 -> 70.6 nS /1
 
@@ -460,8 +470,8 @@ void app_main(void)
     uint32_t last_fault_val = 0xffffffff;
 
     while (true) {
-        //encoder_read();
-        //d_debug("drv: %08x\n", drv_read_reg(0x01) << 16 | drv_read_reg(0x00));
+        // encoder_read();
+        // d_debug("drv: %08x\n", drv_read_reg(0x01) << 16 | drv_read_reg(0x00));
 
         if (csa.state != ST_STOP && !gpio_get_value(&drv_fault)) {
             uint32_t cur_fault_val = (drv_read_reg(0x00) << 16) | drv_read_reg(0x01);

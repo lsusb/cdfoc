@@ -584,9 +584,9 @@ void HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef* hadc)
     }
 #endif
 
-    uint16_t enc_check = encoder_read();
-    if (enc_check != csa.ori_encoder)
-        d_warn("encoder dat late\n");
+    // uint16_t enc_check = encoder_read();
+    // if (enc_check != csa.ori_encoder)
+    //     d_warn("encoder dat late\n");
 
     encoder_isr_prepare();
     gpio_set_value(&dbg_out1, 0);

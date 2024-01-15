@@ -1,0 +1,10 @@
+(module VIA_NPTH_D0.3mm (layer F.Cu) (tedit 5914148C)
+  (fp_text reference ~ (at 0 0) (layer F.SilkS) hide
+    (effects (font (size 0.3 0.3) (thickness 0.06)))
+  )
+  (fp_text value ~ (at 0 0) (layer F.Fab) hide
+    (effects (font (size 0.3 0.3) (thickness 0.06)))
+  )
+  (pad "" np_thru_hole circle (at 0 0) (size 0.3 0.3) (drill 0.3) (layers *.Cu)
+    (zone_connect 2))
+)

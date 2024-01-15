@@ -22,6 +22,7 @@
 #define P_2F(x) (int)(x), abs(((x)-(int)(x))*100)  // "%d.%.2d"
 #define P_3F(x) (int)(x), abs(((x)-(int)(x))*1000) // "%d.%.3d"
 
+#define M_PI		3.14159265358979323846
 
 #define APP_CONF_ADDR       0x0801f800 // page 63, the last page
 #define APP_CONF_VER        0x0105

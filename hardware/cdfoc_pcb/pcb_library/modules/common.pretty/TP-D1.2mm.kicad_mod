@@ -1,0 +1,10 @@
+(module TP-D1.2mm (layer F.Cu) (tedit 58E8CE7F)
+  (solder_mask_margin 0.1)
+  (fp_text reference REF** (at 0 0) (layer F.SilkS) hide
+    (effects (font (size 0.7 0.7) (thickness 0.13)))
+  )
+  (fp_text value TP-D1.2mm (at 0 1.2) (layer F.SilkS)
+    (effects (font (size 0.7 0.7) (thickness 0.13)))
+  )
+  (pad 1 smd circle (at 0 0) (size 1.2 1.2) (layers F.Cu F.Mask))
+)

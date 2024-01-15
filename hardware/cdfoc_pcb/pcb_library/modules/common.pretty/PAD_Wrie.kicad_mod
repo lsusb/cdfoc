@@ -1,0 +1,10 @@
+(module PAD_Wrie (layer F.Cu) (tedit 6041CC92)
+  (attr virtual)
+  (fp_text reference REF** (at -3.77 -0.01) (layer F.SilkS) hide
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (fp_text value PAD_Wire (at 0 1.81) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (pad 1 thru_hole oval (at 0 0) (size 3.4 2.3) (drill 1.6) (layers *.Cu *.Mask))
+)

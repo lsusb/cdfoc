@@ -1,0 +1,139 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: L HH, R, LIC=CZLZX-HJ669-MM19I-T66DQ-37TGS-3ARYV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.16
+Assembler:       Armasm.exe V6.16
+Linker/Locator:  ArmLink.exe V6.16
+Library Manager: ArmAr.exe V6.16
+Hex Converter:   FromElf.exe V6.16
+CPU DLL:         SARMCM3.DLL V5.36.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TCM.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+E:\Work_Files\cdfoc\mdrv_fw\MDK-ARM\mdrv_fw.uvprojx
+Project File Date:  01/15/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.16', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'mdrv_fw'
+../cdnet/dev/cdctl_it.c(10): warning: In file included from...
+../cdnet/dev/cdctl_it.h(13): warning: In file included from...
+../cdnet/dev/cdbus.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling cdctl_it.c...
+../cdnet/utils/cd_debug.c(12): warning: In file included from...
+../cdnet/utils/cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling cd_debug.c...
+../cdnet/dispatch/cdnet_dispatch.c(10): warning: In file included from...
+../cdnet/dispatch/cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling cdnet_dispatch.c...
+../cdnet/dev/cdbus_uart.c(10): warning: In file included from...
+../cdnet/dev/cdbus_uart.h(13): warning: In file included from...
+../cdnet/dev/cdbus.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling cdbus_uart.c...
+../usr/app_motor.c(11): warning: In file included from...
+../usr/app_main.h(13): warning: In file included from...
+../cdnet/dispatch\cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling app_motor.c...
+../usr/pid_f.c(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling pid_f.c...
+../usr/pid_i.c(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling pid_i.c...
+../Core/Src/stm32g4xx_it.c(25): warning: In file included from...
+../usr\app_main.h(13): warning: In file included from...
+../cdnet/dispatch\cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling stm32g4xx_it.c...
+../usr/app_main.c(11): warning: In file included from...
+../usr/app_main.h(13): warning: In file included from...
+../cdnet/dispatch\cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling app_main.c...
+../usr/common_services.c(10): warning: In file included from...
+../usr/app_main.h(13): warning: In file included from...
+../cdnet/dispatch\cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling common_services.c...
+../usr/config.c(10): warning: In file included from...
+../usr/app_main.h(13): warning: In file included from...
+../cdnet/dispatch\cdnet_dispatch.h(13): warning: In file included from...
+../cdnet/utils\cd_utils.h(14): error: 'unistd.h' file not found
+#include <unistd.h> // STDOUT_FILENO, STDERR_FILENO
+         ^~~~~~~~~~
+1 error generated.
+compiling config.c...
+"mdrv_fw\mdrv_fw.axf" - 11 Error(s), 0 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.8.0.pack
+                ARM.CMSIS.5.8.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.5.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32G4xx_DFP.1.4.0.pack
+                Keil.STM32G4xx_DFP.1.4.0
+                STMicroelectronics STM32G4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_mdrv_fw
+  D:\Users\lhq\AppData\Local\Arm\Packs\ARM\CMSIS\5.8.0\CMSIS\Core\Include
+  D:\Users\lhq\AppData\Local\Arm\Packs\Keil\STM32G4xx_DFP\1.4.0\Drivers\CMSIS\Device\ST\STM32G4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.5.0
+      Include file:  CMSIS\Core\Include\tz_context.h
+Target not created.
+Build Time Elapsed:  00:00:00
+</pre>
+</body>
+</html>

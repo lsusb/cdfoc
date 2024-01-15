@@ -1,0 +1,11 @@
+(module 0603_ISO (layer F.Cu) (tedit 614D8607)
+  (fp_text reference REF** (at 0 -1.2) (layer F.SilkS)
+    (effects (font (size 0.7 0.7) (thickness 0.12)))
+  )
+  (fp_text value 0603 (at 0 0) (layer F.Fab) hide
+    (effects (font (size 0.3 0.3) (thickness 0.06)))
+  )
+  (fp_line (start 0 0.35) (end 0 -0.35) (layer F.SilkS) (width 0.15))
+  (pad 1 smd rect (at -0.9081 0) (size 0.8 0.889) (layers F.Cu F.Paste F.Mask))
+  (pad 2 smd rect (at 0.9081 0) (size 0.8 0.889) (layers F.Cu F.Paste F.Mask))
+)
