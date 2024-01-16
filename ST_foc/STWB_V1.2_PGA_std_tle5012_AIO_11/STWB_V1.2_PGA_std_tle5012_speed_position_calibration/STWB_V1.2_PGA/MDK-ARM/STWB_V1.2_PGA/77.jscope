@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<JScopeProject>
+    <FileVersion major="1" minor="1" />
+    <Project>
+        <Configuration>
+            <JLink>
+                <Options Connection="1" IsRTTSession="0" IsRTTWithTimeStamp="1" SamplingPeriod="100" SerialNo="0" JTAG_IRPre="-1" JTAG_DRPre="-1" IP="" TargetDevice="stm32f303cb" TargetInterface="SWD" InterfaceSpeed="4000" />
+            </JLink>
+            <ScriptFile Name="D:\Projects\FOC_DRIVER_BV0.1\Software\STWB_V1.2_PGA_std_tle5012_AIO_11\STWB_V1.2_PGA_std_tle5012_speed_position_calibration\STWB_V1.2_PGA\MDK-ARM\STWB_V1.2_PGA\77.jscope\unspecified" />
+            <ElfFile Name="D:\Projects\FOC_DRIVER_BV0.1\Software\STWB_V1.2_PGA_std_tle5012_AIO_11\STWB_V1.2_PGA_std_tle5012_speed_position_calibration\STWB_V1.2_PGA\MDK-ARM\STWB_V1.2_PGA\STWB_V1_2_PGA.axf" />
+            <DataFile Name="" />
+            <RawFile Name="" />
+            <Scope>
+                <Options TimeResolutionUs="100000" />
+            </Scope>
+        </Configuration>
+        <Windows>
+            <Graph Show="1" />
+            <Watch Show="1" />
+        </Windows>
+        <SelectedSymbols>
+            <Symbol>
+                <Options Name="planer_output" Address="0x20000678" Type="int" TypeID="12" Size="4" GraphColorRed="255" GraphColorGreen="215" GraphColorBlue="0" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="4" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="0" YResolution="20000000" MaxValue="-2147483648" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="input_value" Address="0x20000670" Type="int" TypeID="12" Size="4" GraphColorRed="0" GraphColorGreen="255" GraphColorBlue="0" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="8" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="0" YResolution="20000000" MaxValue="200000000" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="step_now" Address="0x20000650" Type="uchar" TypeID="6" Size="1" GraphColorRed="102" GraphColorGreen="102" GraphColorBlue="178" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="12" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="1" YResolution="5" MaxValue="10" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="vel" Address="0x20000680" Type="int" TypeID="12" Size="4" GraphColorRed="160" GraphColorGreen="32" GraphColorBlue="240" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="13" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="1" YResolution="50000" MaxValue="100000" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="acc" Address="0x2000067C" Type="int" TypeID="12" Size="4" GraphColorRed="255" GraphColorGreen="0" GraphColorBlue="0" YMinSampled="0" YMaxSampled="0" YAvgSampled="0" Offset="17" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="1" YResolution="100" MaxValue="200" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="pos" Address="0x20001E38" Type="long long" TypeID="13" Size="8" GraphColorRed="0" GraphColorGreen="191" GraphColorBlue="255" YMinSampled="-8" YMaxSampled="-5" YAvgSampled="-6" Offset="21" ShowInGraph="1" ACCoupling="0" YOffset="200" IsAutoConfig="0" YResolution="20000" MaxValue="-2147483648" File="..\BSP\control.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+        </SelectedSymbols>
+    </Project>
+</JScopeProject>

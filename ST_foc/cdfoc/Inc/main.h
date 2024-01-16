@@ -67,6 +67,12 @@ void Error_Handler(void);
 #define M1_CURR_AMPL_V_GPIO_Port GPIOA
 #define M1_CURR_AMPL_U_Pin GPIO_PIN_2
 #define M1_CURR_AMPL_U_GPIO_Port GPIOA
+#define SEN_CS_Pin GPIO_PIN_4
+#define SEN_CS_GPIO_Port GPIOA
+#define LED_G_Pin GPIO_PIN_0
+#define LED_G_GPIO_Port GPIOB
+#define LED_R_Pin GPIO_PIN_1
+#define LED_R_GPIO_Port GPIOB
 #define M1_PWM_UH_Pin GPIO_PIN_8
 #define M1_PWM_UH_GPIO_Port GPIOA
 #define M1_PWM_VH_Pin GPIO_PIN_9
@@ -75,12 +81,18 @@ void Error_Handler(void);
 #define M1_PWM_WH_GPIO_Port GPIOA
 #define M1_ENCODER_A_Pin GPIO_PIN_11
 #define M1_ENCODER_A_GPIO_Port GPIOA
-#define M1_ENCODER_B_Pin GPIO_PIN_12
-#define M1_ENCODER_B_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+#define DRV_EN_Pin GPIO_PIN_15
+#define DRV_EN_GPIO_Port GPIOA
+#define DRV_CS_Pin GPIO_PIN_11
+#define DRV_CS_GPIO_Port GPIOC
+#define DRV_FAULT_Pin GPIO_PIN_6
+#define DRV_FAULT_GPIO_Port GPIOB
+#define M1_ENCODER_B_Pin GPIO_PIN_7
+#define M1_ENCODER_B_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

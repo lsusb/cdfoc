@@ -75,11 +75,11 @@
 #define PID_FLUX_KD_DEFAULT           100
 
 /* Torque/Flux control loop gains dividers*/
-#define TF_KPDIV                      512
-#define TF_KIDIV                      4096
+#define TF_KPDIV                      256
+#define TF_KIDIV                      2048
 #define TF_KDDIV                      8192
-#define TF_KPDIV_LOG                  LOG2(512)
-#define TF_KIDIV_LOG                  LOG2(4096)
+#define TF_KPDIV_LOG                  LOG2(256)
+#define TF_KIDIV_LOG                  LOG2(2048)
 #define TF_KDDIV_LOG                  LOG2(8192)
 #define TFDIFFERENTIAL_TERM_ENABLING  DISABLE
 
@@ -88,13 +88,13 @@
                                                       regulation loop (Hz) */
 
 #define PID_SPEED_KP_DEFAULT          2150/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
-#define PID_SPEED_KI_DEFAULT          222/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
+#define PID_SPEED_KI_DEFAULT          111/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
 #define PID_SPEED_KD_DEFAULT          0/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
 /* Speed PID parameter dividers */
-#define SP_KPDIV                      512
+#define SP_KPDIV                      1024
 #define SP_KIDIV                      16384
 #define SP_KDDIV                      16
-#define SP_KPDIV_LOG                  LOG2(512)
+#define SP_KPDIV_LOG                  LOG2(1024)
 #define SP_KIDIV_LOG                  LOG2(16384)
 #define SP_KDDIV_LOG                  LOG2(16)
 
@@ -103,7 +103,7 @@
 /* USER CODE END PID_SPEED_INTEGRAL_INIT_DIV */
 
 #define SPD_DIFFERENTIAL_TERM_ENABLING DISABLE
-#define IQMAX                          11915
+#define IQMAX                          5957
 
 /* Default settings */
 #define DEFAULT_CONTROL_MODE           STC_SPEED_MODE /*!< STC_TORQUE_MODE or
@@ -140,7 +140,7 @@
 /* Encoder alignment */
 #define ALIGNMENT_DURATION              700 /*!< milliseconds */
 #define ALIGNMENT_ANGLE_DEG             90 /*!< degrees [0...359] */
-#define FINAL_I_ALIGNMENT               7744 /*!< s16A */
+#define FINAL_I_ALIGNMENT               1985 /*!< s16A */
 // With ALIGNMENT_ANGLE_DEG equal to 90 degrees final alignment
 // phase current = (FINAL_I_ALIGNMENT * 1.65/ Av)/(32767 * Rshunt)
 // being Av the voltage gain between Rshunt and A/D input

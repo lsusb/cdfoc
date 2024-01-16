@@ -105,10 +105,10 @@ __weak void MCP_Init( MCP_Handle_t *pHandle,
 {
   pHandle->pFCP = pFCP;
   pHandle->s_fwVer = s_fwVer;
-//  FCP_SetClient( pFCP, pHandle,
-//                 (FCP_SentFrameCallback_t) & MCP_SentFrame,
-//                 (FCP_ReceivedFrameCallback_t) & MCP_ReceivedFrame,
-//                 (FCP_RxTimeoutCallback_t) & MCP_OnTimeOut );
+  FCP_SetClient( pFCP, pHandle,
+                 (FCP_SentFrameCallback_t) & MCP_SentFrame,
+                 (FCP_ReceivedFrameCallback_t) & MCP_ReceivedFrame,
+                 (FCP_RxTimeoutCallback_t) & MCP_OnTimeOut );
   pHandle->fFcpSend = fFcpSend;
   pHandle->fFcpReceive = fFcpReceive;
   pHandle->fFcpAbortReceive = fFcpAbortReceive;

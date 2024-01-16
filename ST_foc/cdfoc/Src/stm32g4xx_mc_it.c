@@ -32,7 +32,7 @@
 #include "stm32g4xx.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "schedule.h"
 /* USER CODE END Includes */
 
 /** @addtogroup MCSDK
@@ -215,6 +215,7 @@ static uint8_t SystickDividerCounter = SYSTICK_DIVIDER;
 #endif /* MC_HAL_IS_USED */
 
   /* USER CODE BEGIN SysTick_IRQn 1 */
+	TDT_SYSTICK_IRQHandler();
   /* USER CODE END SysTick_IRQn 1 */
     MC_RunMotorControlTasks();
 

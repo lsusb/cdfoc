@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<JScopeProject>
+    <FileVersion major="1" minor="1" />
+    <Project>
+        <Configuration>
+            <JLink>
+                <Options Connection="1" IsRTTSession="0" IsRTTWithTimeStamp="1" SamplingPeriod="100" SerialNo="0" JTAG_IRPre="-1" JTAG_DRPre="-1" IP="" TargetDevice="STM32F303CB" TargetInterface="SWD" InterfaceSpeed="4000" />
+            </JLink>
+            <ScriptFile Name="D:\Projects\FOC_DRIVER_BV0.1\Software\STWB_V1.2_PGA_std_tle5012\STWB_V1.2_PGA\MDK-ARM\STWB_V1.2_PGA\4.jscope\unspecified" />
+            <ElfFile Name="D:\Projects\FOC_DRIVER_BV0.1\Software\STWB_V1.2_PGA_std_tle5012\STWB_V1.2_PGA\MDK-ARM\STWB_V1.2_PGA\STWB_V1_2_PGA.axf" />
+            <DataFile Name="" />
+            <RawFile Name="" />
+            <Scope>
+                <Options TimeResolutionUs="50000" />
+            </Scope>
+        </Configuration>
+        <Windows>
+            <Graph Show="1" />
+            <Watch Show="1" />
+        </Windows>
+        <SelectedSymbols>
+            <Symbol>
+                <Options Name="TLE5012_reg" Address="0x20000720" Type="volatile ushort" TypeID="7" Size="2" GraphColorRed="255" GraphColorGreen="215" GraphColorBlue="0" YMinSampled="0" YMaxSampled="32766" YAvgSampled="0" Offset="4" ShowInGraph="1" ACCoupling="0" YOffset="230" IsAutoConfig="0" YResolution="10" MaxValue="40000" File="..\STD_BSP\bsp_tle5012.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+            <Symbol>
+                <Options Name="TLE5012_speed" Address="0x20000724" Type="volatile short" TypeID="11" Size="2" GraphColorRed="160" GraphColorGreen="32" GraphColorBlue="240" YMinSampled="-16" YMaxSampled="32" YAvgSampled="0" Offset="6" ShowInGraph="0" ACCoupling="0" YOffset="200" IsAutoConfig="0" YResolution="10" MaxValue="40000" File="..\STD_BSP\bsp_tle5012.c" Scope="0" DrawStyle="0" />
+            </Symbol>
+        </SelectedSymbols>
+    </Project>
+</JScopeProject>
