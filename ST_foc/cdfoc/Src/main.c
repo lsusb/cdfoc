@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "board.h"
+#include "hqfoc_app.h"
 
 /* USER CODE END Includes */
 
@@ -66,8 +67,8 @@ static void MX_ADC2_Init(void);
 static void MX_CORDIC_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_TIM4_Init(void);
-static void MX_SPI1_Init(void);
 static void MX_DMA_Init(void);
+static void MX_SPI1_Init(void);
 static void MX_SPI3_Init(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
@@ -113,8 +114,8 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM4_Init();
   MX_MotorControl_Init();
-  MX_SPI1_Init();
   MX_DMA_Init();
+  MX_SPI1_Init();
   MX_SPI3_Init();
 
   /* Initialize interrupts */
@@ -123,6 +124,8 @@ int main(void)
   HAL_GPIO_WritePin(DRV_EN_GPIO_Port,DRV_EN_Pin,GPIO_PIN_SET);
   
 	HQ_Board_ALL_Init();
+	
+	HAL_Delay(100);
 	
 	MC_StartMotor1();
 
@@ -147,7 +150,6 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Configure the main internal regulator output voltage
   */
@@ -181,14 +183,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  /** Initializes the peripherals clocks
-  */
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC12;
-  PeriphClkInit.Adc12ClockSelection = RCC_ADC12CLKSOURCE_PLL;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    Error_Handler();
-  }
 }
 
 /**
@@ -207,7 +201,7 @@ static void MX_NVIC_Init(void)
   HAL_NVIC_SetPriority(ADC1_2_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
   /* TIM4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM4_IRQn, 3, 0);
+  HAL_NVIC_SetPriority(TIM4_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(TIM4_IRQn);
 }
 
@@ -404,11 +398,11 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
+  hspi1.Init.DataSize = SPI_DATASIZE_9BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -621,12 +615,12 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA1_Channel3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
-  /* DMA1_Channel6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Channel6_IRQn);
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+  /* DMA1_Channel2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
 
 }
 
@@ -654,12 +648,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(DRV_CS_GPIO_Port, DRV_CS_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : SEN_CS_Pin DRV_EN_Pin */
-  GPIO_InitStruct.Pin = SEN_CS_Pin|DRV_EN_Pin;
+  /*Configure GPIO pin : SEN_CS_Pin */
+  GPIO_InitStruct.Pin = SEN_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SEN_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_G_Pin LED_R_Pin */
   GPIO_InitStruct.Pin = LED_G_Pin|LED_R_Pin;
@@ -667,6 +661,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DRV_EN_Pin */
+  GPIO_InitStruct.Pin = DRV_EN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(DRV_EN_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : DRV_CS_Pin */
   GPIO_InitStruct.Pin = DRV_CS_Pin;
@@ -719,4 +720,3 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

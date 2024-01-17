@@ -36,8 +36,6 @@ void DelayMs(uint32_t ms)
 void HQ_Board_ALL_Init(void)
 {
     drv_init();
-
-    tle_5012_init();
     
     Init_OK = 1;
 }

@@ -157,50 +157,34 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>212</LineNumber>
+          <LineNumber>190</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134228930</Address>
+          <Address>134231700</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\hqfoc_app.c</Filename>
+          <Filename>../Src/stm32g4xx_mc_it.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\cdfoc\../app/hqfoc_app.c\212</Expression>
+          <Expression>\\cdfoc\../Src/stm32g4xx_mc_it.c\190</Expression>
         </Bp>
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>182</LineNumber>
+          <LineNumber>187</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134238054</Address>
+          <Address>134231696</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\hqfoc_app.c</Filename>
+          <Filename>../Src/stm32g4xx_mc_it.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\cdfoc\../app/hqfoc_app.c\182</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>202</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134244310</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\app\hqfoc_app.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\cdfoc\../app/hqfoc_app.c\202</Expression>
+          <Expression>\\cdfoc\../Src/stm32g4xx_mc_it.c\187</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -237,12 +221,22 @@
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>tel5012_val,0x0A</ItemText>
+          <ItemText>tel5012_val,0x10</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
           <ItemText>hspi1</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ams5311_ori_reg,0x10</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>rx_buff</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -287,6 +281,12 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
+      <SystemViewers>
+        <Entry>
+          <Name>System Viewer\SPI1</Name>
+          <WinId>35905</WinId>
+        </Entry>
+      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>1</EnableFlashSeq>

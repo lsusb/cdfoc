@@ -165,7 +165,7 @@
 		<define key="HW_OV_CURRENT_PROT_BYPASS" value="DISABLE" />
 		<define key="ALIGNMENT_DURATION" value="700" />
 		<define key="ALIGNMENT_ANGLE_DEG" value="90" />
-		<define key="FINAL_I_ALIGNMENT" value="7744" />
+		<define key="FINAL_I_ALIGNMENT" value="1985" />
 		<define key="STARTING_ANGLE_DEG" value="0" />
 		<define key="PHASE1_DURATION" value="1000" />
 		<define key="PHASE1_FINAL_SPEED_RPM" value="0" />
