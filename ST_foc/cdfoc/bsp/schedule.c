@@ -51,8 +51,8 @@ void HQ_Loop_20Hz(void) // 50ms执行一次
 
     // tel5012_val = encoder_reg_r(2);
     // tel5012_val = tle_5012_DMA_Read();
-    tel5012_val = ams5311_read(0);
-	ams_pos = (uint16_t)(tel5012_val >> 6);
+//    tel5012_val = ams5311_read(0);
+//	ams_pos = (uint16_t)(tel5012_val >> 6);
 //		 HAL_GPIO_WritePin(SEN_CS_GPIO_Port, SEN_CS_Pin, GPIO_PIN_RESET);
 //		 encoder_isr();
 	

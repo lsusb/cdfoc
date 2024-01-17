@@ -80,12 +80,13 @@ uint16_t HQ_FOC_CurrControllerM1(void)
     uint16_t hCodeError;
     SpeednPosFdbk_Handle_t *speedHandle;
 
-//    ams5311_ori_reg = ams5311_read(0);
+    ams5311_ori_reg = ams5311_read(0);
+	hElAngle = (uint16_t)(ams5311_ori_reg >> 6);
 
     //  speedHandle = STC_GetSpeedSensor(pSTC[M1]);
     //  hElAngle = SPD_GetElAngle(speedHandle);
 
-    hElAngle += 1;
+//    hElAngle += 1;
 
     PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
     RCM_ReadOngoingConv();
