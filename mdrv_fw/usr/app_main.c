@@ -11,8 +11,8 @@
 #include "app_main.h"
 //#define SEN_ICMU
 //#define SEN_MA73X
-// #define SEN_TLE5012B
-#define SEN_AS5311
+#define SEN_TLE5012B
+// #define SEN_AS5311
 
 extern SPI_HandleTypeDef hspi1;
 extern SPI_HandleTypeDef hspi2;

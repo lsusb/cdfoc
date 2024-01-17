@@ -35,7 +35,7 @@
 #include "parameters_conversion.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "hqfoc_app.h"
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private define */
@@ -695,11 +695,12 @@ __weak uint8_t TSK_HighFrequencyTask(void)
   ENC_CalcAngle(&ENCODER_M1);   /* if not sensorless then 2nd parameter is MC_NULL*/
 
   /* USER CODE BEGIN HighFrequencyTask SINGLEDRIVE_1 */
-
+  hFOCreturn = HQ_FOC_CurrControllerM1();
+  #if 0
   /* USER CODE END HighFrequencyTask SINGLEDRIVE_1 */
   hFOCreturn = FOC_CurrControllerM1();
   /* USER CODE BEGIN HighFrequencyTask SINGLEDRIVE_2 */
-
+  #endif
   /* USER CODE END HighFrequencyTask SINGLEDRIVE_2 */
   if(hFOCreturn == MC_FOC_DURATION)
   {

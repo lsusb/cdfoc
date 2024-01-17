@@ -16,11 +16,15 @@ extern "C" {
 //#include "as5048.h"
 
 
+
+#define TICK_PER_SECOND 2000
+#define TICK_US (1000000 / TICK_PER_SECOND)
+
 void DelayUs(uint32_t us);
 
 void DelayMs(uint32_t ms);
 
-void TDT_Board_ALL_Init(void);
+void HQ_Board_ALL_Init(void);
 
 uint32_t GetSysTime_us(void);
 

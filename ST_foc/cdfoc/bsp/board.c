@@ -8,8 +8,7 @@
 
 u8 Init_OK;
 
-#define TICK_PER_SECOND 1000
-#define TICK_US (1000000 / TICK_PER_SECOND)
+
 volatile uint32_t sysTickUptime = 0;
 
 uint32_t GetSysTime_us(void)
@@ -34,8 +33,11 @@ void DelayMs(uint32_t ms)
         DelayUs(1000);
 }
 
-void TDT_Board_ALL_Init(void)
+void HQ_Board_ALL_Init(void)
 {
     drv_init();
+
+    tle_5012_init();
+    
     Init_OK = 1;
 }

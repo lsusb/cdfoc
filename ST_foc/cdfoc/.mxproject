@@ -7,8 +7,8 @@ HeaderPath=..\Drivers\STM32G4xx_HAL_Driver\Inc;..\Drivers\STM32G4xx_HAL_Driver\I
 CDefines=ARM_MATH_CM4;USE_HAL_DRIVER;STM32G431xx;USE_HAL_DRIVER;USE_HAL_DRIVER;
 
 [PreviousGenFiles]
-HeaderPath=E:/Work_Files/cdfoc/ST_foc/cdfoc/Inc
+HeaderPath=C:/Work_Files/cdfoc/ST_foc/cdfoc/Inc
 HeaderFiles=motorcontrol.h;drive_parameters.h;mc_tasks.h;motor_control_protocol.h;mc_api.h;mc_config.h;mc_stm_types.h;regular_conversion_manager.h;mc_math.h;mc_interface.h;parameters_conversion.h;parameters_conversion_g4xx.h;pmsm_motor_parameters.h;power_stage_parameters.h;mc_parameters.h;ui_task.h;user_interface.h;stm32g4xx_it.h;stm32g4xx_hal_conf.h;main.h;
-SourcePath=E:/Work_Files/cdfoc/ST_foc/cdfoc/Src
+SourcePath=C:/Work_Files/cdfoc/ST_foc/cdfoc/Src
 SourceFiles=motorcontrol.c;mc_api.c;motor_control_protocol.c;mc_config.c;mc_tasks.c;regular_conversion_manager.c;mc_math.c;mc_interface.c;stm32g4xx_mc_it.c;mc_parameters.c;ui_task.c;user_interface.c;stm32g4xx_it.c;stm32g4xx_hal_msp.c;main.c;
 

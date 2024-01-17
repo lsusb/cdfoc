@@ -1,60 +1,63 @@
 #include "schedule.h"
-#include "control.h" 
-
+#include "control.h"
 
 #include "board.h"
 #include "mc_tasks.h"
 #include "main.h"
+#include "hqfoc_app.h"
 
-void TDT_Loop_1000Hz(void)//1msÖ´ÐÐÒ»´Î
+void HQ_Loop_1000Hz(void) // 1msæ‰§è¡Œä¸€æ¬¡
 {
-	float loop_time_1000hz = Get_Cycle_T(1);    	  /*»ñÈ¡5ms×¼È·Ê±¼ä*/ 
-	UNUSED(loop_time_1000hz);
-
+    float loop_time_1000hz = Get_Cycle_T(1); /*èŽ·å–5mså‡†ç¡®æ—¶é—´*/
+    UNUSED(loop_time_1000hz);
 }
 
-void TDT_Loop_500Hz(void)	//2msÖ´ÐÐÒ»´Î
+void HQ_Loop_500Hz(void) // 2msæ‰§è¡Œä¸€æ¬¡
 {
     float loop_time_500hz;
-    loop_time_500hz = Get_Cycle_T(2);    	  /*»ñÈ¡5ms×¼È·Ê±¼ä*/
-	UNUSED(loop_time_500hz);
-	
+    loop_time_500hz = Get_Cycle_T(2); /*èŽ·å–5mså‡†ç¡®æ—¶é—´*/
+    UNUSED(loop_time_500hz);
 }
 
-void TDT_Loop_200Hz(void)	//5msÖ´ÐÐÒ»´Î
+void HQ_Loop_200Hz(void) // 5msæ‰§è¡Œä¸€æ¬¡
 {
     float loop_time_200hz;
-    loop_time_200hz = Get_Cycle_T(3);    	  /*»ñÈ¡5ms×¼È·Ê±¼ä*/
-	UNUSED(loop_time_200hz);
+    loop_time_200hz = Get_Cycle_T(3); /*èŽ·å–5mså‡†ç¡®æ—¶é—´*/
+    UNUSED(loop_time_200hz);
 }
 
-void TDT_Loop_100Hz(void)	//10msÖ´ÐÐÒ»´Î
+void HQ_Loop_100Hz(void) // 10msæ‰§è¡Œä¸€æ¬¡
 {
-	float loop_time_100hz = Get_Cycle_T(4);
-	UNUSED(loop_time_100hz);
+    float loop_time_100hz = Get_Cycle_T(4);
+    UNUSED(loop_time_100hz);
 }
 
-void TDT_Loop_50Hz(void)	//20msÖ´ÐÐÒ»´Î
+void HQ_Loop_50Hz(void) // 20msæ‰§è¡Œä¸€æ¬¡
 {
     float loop_time_50hz = Get_Cycle_T(5);
-	UNUSED(loop_time_50hz);
-
-
+    UNUSED(loop_time_50hz);
 }
 
 uint8_t drv_fault = 1;
-void TDT_Loop_20Hz(void)	//50msÖ´ÐÐÒ»´Î
+uint16_t tel5012_val = 0;
+void HQ_Loop_20Hz(void) // 50msæ‰§è¡Œä¸€æ¬¡
 {
-    static u8 timer_50ms = 0;//¼ÇÂ¼50ms´ÎÊý
+    static u8 timer_50ms = 0; // è®°å½•50msæ¬¡æ•°
     float loop_time_20hz = Get_Cycle_T(5);
-	UNUSED(loop_time_20hz);
+    UNUSED(loop_time_20hz);
+
+    drv_fault = HAL_GPIO_ReadPin(DRV_FAULT_GPIO_Port, DRV_FAULT_Pin);
+
+    // tel5012_val = encoder_reg_r(2);
+    tel5012_val = tle_5012_DMA_Read();
 	
-	drv_fault = HAL_GPIO_ReadPin(DRV_FAULT_GPIO_Port,DRV_FAULT_Pin);
+//		 HAL_GPIO_WritePin(SEN_CS_GPIO_Port, SEN_CS_Pin, GPIO_PIN_RESET);
+//		 encoder_isr();
 	
-    if(++timer_50ms > 20)
+    if (++timer_50ms > 10)
     {
         timer_50ms = 0;
-		HAL_GPIO_TogglePin(LED_G_GPIO_Port,LED_G_Pin);
+        HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
     }
 }
 
@@ -62,70 +65,75 @@ volatile float Cycle_T[GET_TIME_NUM][3];
 
 float Get_Cycle_T(u8 item)
 {
-    Cycle_T[item][OLD] = Cycle_T[item][NOW];	//ÉÏÒ»´ÎµÄÊ±¼ä
-    Cycle_T[item][NOW] = GetSysTime_us()/1000000.0f; //±¾´ÎµÄÊ±¼ä
-    Cycle_T[item][NEW] = ( ( Cycle_T[item][NOW] - Cycle_T[item][OLD] ) );//¼ä¸ôµÄÊ±¼ä£¨ÖÜÆÚ£©
+    Cycle_T[item][OLD] = Cycle_T[item][NOW];                          // ä¸Šä¸€æ¬¡çš„æ—¶é—´
+    Cycle_T[item][NOW] = GetSysTime_us() / 1000000.0f;                // æœ¬æ¬¡çš„æ—¶é—´
+    Cycle_T[item][NEW] = ((Cycle_T[item][NOW] - Cycle_T[item][OLD])); // é—´éš”çš„æ—¶é—´ï¼ˆå‘¨æœŸï¼‰
     return Cycle_T[item][NEW];
 }
 
-void TDT_Cycle_Time_Init(void)
+void HQ_Cycle_Time_Init(void)
 {
     u8 i;
-    for(i=0; i<GET_TIME_NUM; i++)
+    for (i = 0; i < GET_TIME_NUM; i++)
     {
         Get_Cycle_T(i);
     }
 }
 
 
-void TDT_SYSTICK_IRQHandler(void)
+#define SYSTICK_DIVIDER (SYS_TICK_FREQUENCY / 1000)
+void HQ_SYSTICK_IRQHandler(void)
 {
-		static schedule infantrySchedule;
-		sysTickUptime++;
-		infantrySchedule.cnt_1ms++;
-		infantrySchedule.cnt_2ms++;
-		infantrySchedule.cnt_5ms++;
-		infantrySchedule.cnt_10ms++;
-		infantrySchedule.cnt_20ms++;
-		infantrySchedule.cnt_50ms++;
-	
-		if(Init_OK)
-		TDT_Loop(&infantrySchedule);
+    static uint8_t SystickDividerCounter = SYSTICK_DIVIDER;
+    static schedule infantrySchedule;
+
+    if (SystickDividerCounter == SYSTICK_DIVIDER)
+    {
+        sysTickUptime++;
+        infantrySchedule.cnt_1ms++;
+        infantrySchedule.cnt_2ms++;
+        infantrySchedule.cnt_5ms++;
+        infantrySchedule.cnt_10ms++;
+        infantrySchedule.cnt_20ms++;
+        infantrySchedule.cnt_50ms++;
+
+        if (Init_OK)
+            HQ_Loop(&infantrySchedule);
+        SystickDividerCounter = 0;
+    }
+    SystickDividerCounter++;
 }
 
-
-void TDT_Loop(schedule* robotSchdule)
+void HQ_Loop(schedule *robotSchdule)
 {
-    if(robotSchdule->cnt_1ms >= 1)
+    if (robotSchdule->cnt_1ms >= 1)
     {
-        TDT_Loop_1000Hz();
+        HQ_Loop_1000Hz();
         robotSchdule->cnt_1ms = 0;
     }
-    if(robotSchdule->cnt_2ms >= 2)
+    if (robotSchdule->cnt_2ms >= 2)
     {
-        TDT_Loop_500Hz();
+        HQ_Loop_500Hz();
         robotSchdule->cnt_2ms = 0;
     }
-    if(robotSchdule->cnt_5ms >= 5)
+    if (robotSchdule->cnt_5ms >= 5)
     {
-        TDT_Loop_200Hz();
+        HQ_Loop_200Hz();
         robotSchdule->cnt_5ms = 0;
     }
-    if(robotSchdule->cnt_10ms >= 10)
+    if (robotSchdule->cnt_10ms >= 10)
     {
-        TDT_Loop_100Hz();
+        HQ_Loop_100Hz();
         robotSchdule->cnt_10ms = 0;
     }
-    if(robotSchdule->cnt_20ms >= 20)
+    if (robotSchdule->cnt_20ms >= 20)
     {
-        TDT_Loop_50Hz();
+        HQ_Loop_50Hz();
         robotSchdule->cnt_20ms = 0;
     }
-    if(robotSchdule->cnt_50ms >= 50)
+    if (robotSchdule->cnt_50ms >= 50)
     {
-        TDT_Loop_20Hz();
+        HQ_Loop_20Hz();
         robotSchdule->cnt_50ms = 0;
     }
 }
-
-

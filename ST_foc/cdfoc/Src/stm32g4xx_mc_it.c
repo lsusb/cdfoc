@@ -47,7 +47,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define SYSTICK_DIVIDER (SYS_TICK_FREQUENCY/1000)
+#define SYSTICK_DIVIDER (SYS_TICK_FREQUENCY / 1000)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
@@ -215,7 +215,7 @@ static uint8_t SystickDividerCounter = SYSTICK_DIVIDER;
 #endif /* MC_HAL_IS_USED */
 
   /* USER CODE BEGIN SysTick_IRQn 1 */
-	TDT_SYSTICK_IRQHandler();
+  HQ_SYSTICK_IRQHandler();
   /* USER CODE END SysTick_IRQn 1 */
     MC_RunMotorControlTasks();
 

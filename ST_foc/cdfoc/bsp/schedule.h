@@ -15,15 +15,15 @@ typedef struct _schedule {
 
 
 
-void TDT_Loop_1000Hz(void); //1msÖ´ÐÐÒ»´Î
-void TDT_Loop_500Hz(void);	//2msÖ´ÐÐÒ»´Î
-void TDT_Loop_200Hz(void);	//5msÖ´ÐÐÒ»´Î
-void TDT_Loop_100Hz(void);	//10msÖ´ÐÐÒ»´Î
-void TDT_Loop_50Hz(void);	  //20msÖ´ÐÐÒ»´Î
-void TDT_Loop_20Hz(void);	  //50msÖ´ÐÐÒ»´Î
+void HQ_Loop_1000Hz(void); //1msæ‰§è¡Œä¸€æ¬¡
+void HQ_Loop_500Hz(void);	//2msæ‰§è¡Œä¸€æ¬¡
+void HQ_Loop_200Hz(void);	//5msæ‰§è¡Œä¸€æ¬¡
+void HQ_Loop_100Hz(void);	//10msæ‰§è¡Œä¸€æ¬¡
+void HQ_Loop_50Hz(void);	  //20msæ‰§è¡Œä¸€æ¬¡
+void HQ_Loop_20Hz(void);	  //50msæ‰§è¡Œä¸€æ¬¡
 
-void TDT_Loop(schedule* robotSchdule);
-void TDT_SYSTICK_IRQHandler(void);
+void HQ_Loop(schedule* robotSchdule);
+void HQ_SYSTICK_IRQHandler(void);
 
 
 #define NOW 0
@@ -33,7 +33,7 @@ void TDT_SYSTICK_IRQHandler(void);
 #define GET_TIME_NUM 10
 
 float Get_Cycle_T(u8);
-void TDT_Cycle_Time_Init(void);
+void HQ_Cycle_Time_Init(void);
 
 
 

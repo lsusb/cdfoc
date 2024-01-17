@@ -39,7 +39,7 @@ typedef struct{
 	
 		u8 		can_id;
 	
-		u8		motor_driver_name;		//µçµ÷ÀàÐÍ
+		u8		motor_driver_name;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 	
 		uint16_t	version_number_eeprom;		
@@ -57,13 +57,13 @@ typedef struct{
 
 typedef struct{
 		int16_t 				pos_compensation;
-		u8							control_mode;											//0:Á¦¾ØÄ£Ê½        1£ºËÙ¶ÈÄ£Ê½          2£ºÎ»ÖÃÄ£Ê½
+		u8							control_mode;											//0:ï¿½ï¿½ï¿½ï¿½Ä£Ê½        1ï¿½ï¿½ï¿½Ù¶ï¿½Ä£Ê½          2ï¿½ï¿½Î»ï¿½ï¿½Ä£Ê½
 		
-		int16_t					feed_back_position_zeropoint;			//»úÐµÁãÎ»Æ«ÖÃ
+		int16_t					feed_back_position_zeropoint;			//ï¿½ï¿½Ðµï¿½ï¿½Î»Æ«ï¿½ï¿½
 		
-		uint16_t				max_angle;												//×î´ó×ª½Ç
-		uint16_t				max_speed;												//×î´ó×ªËÙ
-		uint16_t				feed_back_freq;										//·´À¡ÆµÂÊ
+		uint16_t				max_angle;												//ï¿½ï¿½ï¿½×ªï¿½ï¿½
+		uint16_t				max_speed;												//ï¿½ï¿½ï¿½×ªï¿½ï¿½
+		uint16_t				feed_back_freq;										//ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½
 	
 		_pid_parameter 	speed_parameter;
 		_pid_parameter	pos_parameter;
