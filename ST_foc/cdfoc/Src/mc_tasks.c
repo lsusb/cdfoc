@@ -360,16 +360,16 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
   case IDLE_START:
 
-//    if ( EAC_IsAligned( &EncAlignCtrlM1 ) == false )
-//    {
-//      /* The encoder is not aligned. It needs to be and the alignment procedure will make
-//       * the state machine go back to IDLE. Setting the Restart State to true ensures that
-//       * the start up procedure will carry on after alignment. */
-//      EAC_SetRestartState( &EncAlignCtrlM1, true );
+    if ( EAC_IsAligned( &EncAlignCtrlM1 ) == false )
+    {
+      /* The encoder is not aligned. It needs to be and the alignment procedure will make
+       * the state machine go back to IDLE. Setting the Restart State to true ensures that
+       * the start up procedure will carry on after alignment. */
+      EAC_SetRestartState( &EncAlignCtrlM1, true );
 
-//      STM_NextState( &STM[M1], IDLE_ALIGNMENT );
-//      break;
-//    }
+      STM_NextState( &STM[M1], IDLE_ALIGNMENT );
+      break;
+    }
 
     R3_2_TurnOnLowSides( pwmcHandle[M1] );
     TSK_SetChargeBootCapDelayM1( CHARGE_BOOT_CAP_TICKS );

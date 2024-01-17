@@ -159,7 +159,7 @@
           <Type>0</Type>
           <LineNumber>190</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231700</Address>
+          <Address>134231452</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -175,7 +175,7 @@
           <Type>0</Type>
           <LineNumber>187</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231696</Address>
+          <Address>134231448</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -237,6 +237,11 @@
           <count>9</count>
           <WinNumber>1</WinNumber>
           <ItemText>rx_buff</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>ams_pos,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

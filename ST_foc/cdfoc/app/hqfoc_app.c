@@ -114,27 +114,30 @@ uint16_t HQ_FOC_CurrControllerM1(void)
     return (hCodeError);
 }
 
-uint16_t rx_buff[3];
+uint16_t rx_buff[2];
+
 uint32_t ams5311_read(ams5311_frame_type_e frame_type)
 {
+    uint8_t cpol = SPI_POLARITY_LOW;
+	uint32_t ams_reg;
+    if(frame_type == POS_FRAME)
+        cpol = SPI_POLARITY_HIGH;
+    else 
+        cpol = SPI_POLARITY_LOW;
 
-//    uint8_t cpol = SPI_POLARITY_LOW;
-//    if(frame_type == POS_FRAME)
-//        cpol = SPI_POLARITY_HIGH;
-//    else 
-//        cpol = SPI_POLARITY_LOW;
 
-
-//    if((hspi1.Instance->CR1 & SPI_CR1_CPOL) != cpol)
-//    {
-//        change_spi1_cpol(cpol);
-//    }
+    if((hspi1.Instance->CR1 & SPI_CR1_CPOL) != cpol)
+    {
+        change_spi1_cpol(cpol);
+    }
 
     HAL_GPIO_WritePin(SEN_CS_GPIO_Port, SEN_CS_Pin, GPIO_PIN_RESET);
 	
 	HAL_SPI_Receive_DMA(&hspi1,(uint8_t*)&rx_buff,2);
-
-    return (rx_buff[0])<<9 | (rx_buff[1] & 0x1FF);
+	
+    ams_reg = ((rx_buff[0] & 0x3FF)<<10 | (rx_buff[1] & 0x3FF)) >> 1;
+	
+	return (ams_reg & 0x3FFFF);
 }
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
