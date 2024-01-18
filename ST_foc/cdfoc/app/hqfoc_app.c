@@ -2,6 +2,7 @@
 #include "main.h"
 #include "user_interface.h"
 #include "motor_control_protocol.h"
+#include <string.h>
 
 #include "main.h"
 #include "mc_type.h"
@@ -23,6 +24,11 @@ extern SPI_HandleTypeDef hspi1;
 extern PWMC_Handle_t *pwmcHandle[NBR_OF_MOTORS];
 extern CircleLimitation_Handle_t *pCLM[NBR_OF_MOTORS];
 extern FOCVars_t FOCVars[NBR_OF_MOTORS];
+
+as5311_pack_t as5311;
+
+
+static int16_t GetElAngle(void);
 
 void FCP_SetClient(FCP_Handle_t *pHandle,
                    struct MCP_Handle_s *pClient,
@@ -64,13 +70,12 @@ void drv_init(void)
     drv_write_reg(0x02, (1 << 10) | (1 << 7) | (1 << 5)); // shutdown all on err, otw err, 3x pwm mode
 }
 
-
-
 int16_t dbg_speed = 1;
 qd_t dbg_Vqd_ref;
 int16_t hElAngle;
 uint16_t ori_tle5012_angle;
 uint32_t ams5311_ori_reg;
+uint16_t hElAngle_compensation = 1658;
 uint16_t HQ_FOC_CurrControllerM1(void)
 {
     qd_t Iqd, Vqd;
@@ -80,13 +85,15 @@ uint16_t HQ_FOC_CurrControllerM1(void)
     uint16_t hCodeError;
     SpeednPosFdbk_Handle_t *speedHandle;
 
-    ams5311_ori_reg = ams5311_read(0);
-	hElAngle = (uint16_t)(ams5311_ori_reg >> 6);
+//    hElAngle = GetElAngle() + hElAngle_compensation;
+	GetElAngle();
+	hElAngle = (int16_t)((as5311.overloop_pos % ENC_COUNT_PER_POLE_PAIR) * 1.28f) + hElAngle_compensation;
 
+//    hElAngle = -16384;
     //  speedHandle = STC_GetSpeedSensor(pSTC[M1]);
     //  hElAngle = SPD_GetElAngle(speedHandle);
 
-//    hElAngle += 1;
+    //    hElAngle += 1;
 
     PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
     RCM_ReadOngoingConv();
@@ -102,7 +109,7 @@ uint16_t HQ_FOC_CurrControllerM1(void)
     //            (int32_t)(FOCVars[M1].Iqdref.d) - Iqd.d);
 
     Vqd = Circle_Limitation(pCLM[M1], Vqd);
-    hElAngle += SPD_GetInstElSpeedDpp(speedHandle) * REV_PARK_ANGLE_COMPENSATION_FACTOR;
+    // hElAngle += SPD_GetInstElSpeedDpp(speedHandle) * REV_PARK_ANGLE_COMPENSATION_FACTOR;
     Valphabeta = MCM_Rev_Park(Vqd, hElAngle);
     hCodeError = PWMC_SetPhaseVoltage(pwmcHandle[M1], Valphabeta);
     FOCVars[M1].Vqd = Vqd;
@@ -120,38 +127,34 @@ uint16_t rx_buff[2];
 uint32_t ams5311_read(ams5311_frame_type_e frame_type)
 {
     uint8_t cpol = SPI_POLARITY_LOW;
-	uint32_t ams_reg;
-    if(frame_type == POS_FRAME)
+    uint32_t ams_reg;
+    if (frame_type == POS_FRAME)
         cpol = SPI_POLARITY_HIGH;
-    else 
+    else
         cpol = SPI_POLARITY_LOW;
 
-
-    if((hspi1.Instance->CR1 & SPI_CR1_CPOL) != cpol)
+    if ((hspi1.Instance->CR1 & SPI_CR1_CPOL) != cpol)
     {
         change_spi1_cpol(cpol);
     }
 
     HAL_GPIO_WritePin(SEN_CS_GPIO_Port, SEN_CS_Pin, GPIO_PIN_RESET);
-	
-	HAL_SPI_Receive_DMA(&hspi1,(uint8_t*)&rx_buff,2);
-	
-    ams_reg = ((rx_buff[0] & 0x3FF)<<10 | (rx_buff[1] & 0x3FF)) >> 1;
-	
-	return (ams_reg & 0x3FFFF);
+
+    HAL_SPI_Receive_DMA(&hspi1, (uint8_t *)&rx_buff, 2);
+
+    ams_reg = ((rx_buff[0] & 0x3FF) << 10 | (rx_buff[1] & 0x3FF)) >> 1;
+
+    return (ams_reg & 0x3FFFF);
 }
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-
 }
 
 void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 {
     HAL_GPIO_WritePin(SEN_CS_GPIO_Port, SEN_CS_Pin, GPIO_PIN_SET);
-	
 }
-
 
 void change_spi1_cpol(uint8_t cpol)
 {
@@ -170,4 +173,43 @@ void change_spi1_cpol(uint8_t cpol)
 
     /* Write to SPIx CR1 */
     WRITE_REG(hspi1.Instance->CR1, tmpreg);
+}
+
+static int32_t overloop_proccess(int16_t single_pos, int16_t single_max)
+{
+    static int16_t single_pos_last = 0;
+    static int16_t cnt = 0;
+
+    if (single_pos_last - single_pos > single_max / 2)
+        cnt++;
+    if (single_pos_last - single_pos < -single_max / 2)
+        cnt--;
+    int32_t overloop_pos = single_pos + cnt * single_max;
+    single_pos_last = single_pos;
+
+    return overloop_pos;
+}
+
+static int16_t GetElAngle(void)
+{
+    uint32_t reg_data = ams5311_read(POS_FRAME);
+
+    as5311.even_par = reg_data & 0x01;
+    as5311.mag_dec = (reg_data >> 1) & 0x01;
+    as5311.mag_inc = (reg_data >> 2) & 0x01;
+    as5311.mag_inc = (reg_data >> 3) & 0x01;
+    as5311.cof = (reg_data >> 4) & 0x01;
+    as5311.ocf = (reg_data >> 5) & 0x01;
+
+    as5311.posdata = (uint16_t)(reg_data >> 6);
+    as5311.overloop_pos = overloop_proccess(as5311.posdata,4096);
+    // as5311.pos_mm = as5311.overloop_pos / ENC_COUNT_PER_MM;
+
+    // float pole_pair = 2 * POLE_PITCH;
+    // float eangle = (as5311.pos_mm - floor(as5311.pos_mm / pole_pair) * pole_pair) / (pole_pair);
+    // eangle = LIMIT(eangle,0,1);
+
+//    as5311.ElAngle = (int16_t)((as5311.overloop_pos % ENC_COUNT_PER_POLE_PAIR) * EANGLE_MANGLE_RATE);
+
+    return as5311.ElAngle;
 }

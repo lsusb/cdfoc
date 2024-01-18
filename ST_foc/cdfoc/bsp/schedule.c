@@ -47,7 +47,7 @@ void HQ_Loop_20Hz(void) // 50ms执行一次
     float loop_time_20hz = Get_Cycle_T(5);
     UNUSED(loop_time_20hz);
 
-    drv_fault = HAL_GPIO_ReadPin(DRV_FAULT_GPIO_Port, DRV_FAULT_Pin);
+    drv_fault = HAL_GPIO_ReadPin(DRV_FAULT_GPIO_Port, DRV_FAULT_Pin); //Fault indicator output. This pin is pulled logic low during a fault condition and requires an external pullup resistor
 
     // tel5012_val = encoder_reg_r(2);
     // tel5012_val = tle_5012_DMA_Read();
